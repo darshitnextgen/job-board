@@ -1,11 +1,38 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+/*
+  ** Links
+*/
+import Navbar from './components/Navbar';
+
+/*
+  ** Pages
+*/
+import Home from './pages/Home';
+import Jobs from './pages/Jobs';
+import JobDetail from './pages/JobDetail';
+import SavedJobs from './pages/SavedJobs';
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-500">
-        Job Board 🚀
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/jobs/:id" element={<JobDetail />} />
+        <Route path="/saved" element={<SavedJobs />} />
+      </Routes>
+    </BrowserRouter>
   )
+  // return (
+  //   <>
+
+  //     <Home />
+  //     <Jobs />
+  //     <JobDetail />
+  //     <SavedJobs />
+  //   </>
+  // );
 }
 
-export default App
+export default App;
