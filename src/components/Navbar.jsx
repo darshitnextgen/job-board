@@ -1,39 +1,38 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 function Navbar() {
+    const links = [
+        { name: 'Home', path: '/' },
+        { name: 'Jobs', path: '/jobs' },
+        { name: 'Saved Jobs', path: '/saved' },
+    ]
+
     return (
-        <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-            <div className="text-xl font-bold text-blue-600">
+        <nav className="bg-gray-900 border-b border-gray-800 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+
+            <NavLink to="/" className="text-blue-400 text-xl font-bold">
                 JobBoard
+            </NavLink>
+
+            <div className="flex gap-8">
+                {links.map((link) => (
+                    <NavLink
+                        key={link.name}
+                        to={link.path}
+                        end={link.path === '/'}
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-blue-400 font-medium text-sm'
+                                : 'text-gray-400 hover:text-white text-sm transition-colors'
+                        }
+                    >
+                        {link.name}
+                    </NavLink>
+                ))}
             </div>
-            <div className="flex gap-6">
-                <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                        isActive ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-500"
-                    }
-                >
-                    Home
-                </NavLink>
-                <NavLink
-                    to="/jobs"
-                    className={({ isActive }) =>
-                        isActive ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-500"
-                    }
-                >
-                    Jobs
-                </NavLink>
-                <NavLink
-                    to="/saved"
-                    className={({ isActive }) =>
-                        isActive ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-500"
-                    }
-                >
-                    Saved Jobs
-                </NavLink>
-            </div>
+
         </nav>
-    );
+    )
 }
 
-export default Navbar;
+export default Navbar

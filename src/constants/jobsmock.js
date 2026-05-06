@@ -14,7 +14,7 @@
     * featured (boolean)
 **/
 
-export const JobsMock = [
+export const jobs = [
     {
         id: 1,
         title: "Senior React Native Developer",
