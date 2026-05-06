@@ -26,7 +26,7 @@ function Home() {
             {/* Hero Section */}
             <div className="bg-gradient-to-b from-gray-900 to-gray-950 py-24 px-8 text-center">
                 <h1 className="text-5xl font-bold text-white mb-4">
-                    Find Your Dream Job in India
+                    Find Your Dream Job in Your City
                 </h1>
                 <p className="text-gray-400 text-lg mb-10">
                     Search from {jobs.length}+ jobs at top Indian startups
