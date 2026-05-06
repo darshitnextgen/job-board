@@ -24,15 +24,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   )
-  // return (
-  //   <>
-
-  //     <Home />
-  //     <Jobs />
-  //     <JobDetail />
-  //     <SavedJobs />
-  //   </>
-  // );
 }
 
 export default App;
