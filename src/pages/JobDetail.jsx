@@ -1,11 +1,22 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { jobs } from '../constants/jobsmock'
+import { useJobContext } from '../context/JobContext'
 
 function JobDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
+    const { state, dispatch } = useJobContext()
 
     const job = jobs.find((j) => j.id === Number(id))
+    const isSaved = state.savedJobs.some((j) => j.id === job.id)
+
+    function handleSave() {
+        if (isSaved) {
+            dispatch({ type: 'REMOVE_JOB', payload: job.id })
+        } else {
+            dispatch({ type: 'SAVE_JOB', payload: job })
+        }
+    }
 
     if (!job) {
         return (
@@ -81,8 +92,10 @@ function JobDetail() {
                             <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-lg font-medium text-sm transition-colors">
                                 Apply Now
                             </button>
-                            <button className="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white px-8 py-2.5 rounded-lg text-sm transition-colors">
-                                Save Job
+                            <button
+                                onClick={handleSave}
+                                className="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white px-8 py-2.5 rounded-lg text-sm transition-colors">
+                                {isSaved ? '♥ Saved' : 'Save Job'}
                             </button>
                         </div>
                     </div>
