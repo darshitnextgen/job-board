@@ -1,10 +1,23 @@
 import { NavLink } from 'react-router-dom'
+import { useCallback } from 'react'
+import { useJobContext } from '../context/JobContext'
 
 function Navbar() {
+    const { state } = useJobContext()
+
+    const getSavedCount = useCallback(() => {
+        return state.savedJobs.length
+    }, [state.savedJobs])
+
+    const savedCount = getSavedCount()
+
     const links = [
         { name: 'Home', path: '/' },
         { name: 'Jobs', path: '/jobs' },
-        { name: 'Saved Jobs', path: '/saved' },
+        {
+            name: savedCount > 0 ? `Saved Jobs (${savedCount})` : 'Saved Jobs',
+            path: '/saved'
+        },
     ]
 
     return (
@@ -17,7 +30,7 @@ function Navbar() {
             <div className="flex gap-8">
                 {links.map((link) => (
                     <NavLink
-                        key={link.name}
+                        key={link.path}
                         to={link.path}
                         end={link.path === '/'}
                         className={({ isActive }) =>
@@ -35,4 +48,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default Navbar;
