@@ -1,10 +1,7 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useReducer, useEffect } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 const JobContext = createContext(null)
-
-const initialState = {
-    savedJobs: []
-}
 
 function jobReducer(state, action) {
     switch (action.type) {
@@ -35,7 +32,19 @@ function jobReducer(state, action) {
 }
 
 export function JobProvider({ children }) {
-    const [state, dispatch] = useReducer(jobReducer, initialState)
+
+    const [savedJobsStorage, setSavedJobsStorage] = useLocalStorage(
+        'saved-jobs',
+        []
+    )
+
+    const [state, dispatch] = useReducer(jobReducer, {
+        savedJobs: savedJobsStorage
+    })
+
+    useEffect(() => {
+        setSavedJobsStorage(state.savedJobs)
+    }, [state.savedJobs])
 
     return (
         <JobContext.Provider value={{ state, dispatch }}>
