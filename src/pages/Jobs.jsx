@@ -1,5 +1,5 @@
 // ── Plugin Imports ──
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 // ── Local Imports ──
@@ -8,7 +8,7 @@ import useDebounce from '../hooks/useDebounce';
 
 function Jobs() {
     const navigate = useNavigate()
-
+    const searchRef = useRef(null);
     const [search, setSearch] = useState('')
     const [selectedType, setSelectedType] = useState('all')
     const [selectedCategory, setSelectedCategory] = useState('all')
@@ -45,7 +45,11 @@ function Jobs() {
         const start = (currentPage - 1) * jobsPerPage
         const end = start + jobsPerPage
         return filteredJobs.slice(start, end)
-    }, [filteredJobs, currentPage])
+    }, [filteredJobs, currentPage]);
+
+    useEffect(() => {
+        searchRef.current.focus();
+    }, [])
 
     function handleTypeChange(type) {
         setSelectedType(type)
@@ -71,6 +75,7 @@ function Jobs() {
 
                 {/* Search */}
                 <input
+                    ref={searchRef}
                     type="text"
                     placeholder="Search job title, company, location..."
                     value={search}
